@@ -5,7 +5,8 @@ Clone the repository, change directory into it and execute the following command
 
 ```mvn clean install```
 
-## Decrypt password
+## Decrypt passwords
+### Encrypted with Asymmetric Key Encryption
 change directory in target folder and issue the following command.
 
 ```
@@ -26,10 +27,38 @@ The above values can be passed as args as well.
 ```
 java -cp org.wso2.custom.password.decrypt-1.0.0.jar:lib/\* org.wso2.custom.password.decrypt.AsymmetricKeyDecryptImpl $CipherText $SuperTenantKeystorePath $SuperTenantKeystoreAlias $SuperTenantKeystorePassword 
 ```
-## Output 
+#### Output 
 The ouput would be in the following format. The decrypted plain text would be displayed under "*** Plain Text ***"
 ```
 Cipher transformation for decryption : RSA/ECB/OAEPwithSHA1andMGF1Padding
 *** Plain Text ***
 1b01a18564
 ```
+### Encrypted with Symmetric Key Encryption
+change directory in target folder and issue the following command.
+```
+java -cp org.wso2.custom.password.decrypt-1.0.0.jar:lib/\* org.wso2.custom.password.decrypt.SymmetricKeyDecryptImpl
+```
+You will be prompted to enter the following details: Encrypted Text and the Encryption Key
+
+example:
+
+```
+java -cp org.wso2.custom.password.decrypt-1.0.0.jar:lib/\* org.wso2.custom.password.decrypt.SymmetricKeyDecryptImpl
+Encrypted Text : eyJjIjoiZXlKamFYQm9aWElpT2lKSVR6QlZPVXN3Y0RkdlZWbHZWRVpUY1haUUt6Tk5RMVpKYWtkclFsWkRPUzlXT0QwaUxDSnBibWwwYVdGc2FYcGhkR2x2YmxabFkzUnZjaUk2SWt4alpqVndiMlp4UldWNVFXRkZNV3RXVVZoNGFIYzlQU0o5IiwidCI6IkFFUy9HQ00vTm9QYWRkaW5nIiwiaXYiOiJMY2Y1cG9mcUVleUFhRTFrVlFYeGh3PT0ifQ==
+Encryption Key : 03BAFEB27A8E871CAD83C5CD4E771DAB
+```
+The above values can be passed as args as well. 
+```
+java -cp org.wso2.custom.password.decrypt-1.0.0.jar:lib/\* org.wso2.custom.password.decrypt.SymmetricKeyDecryptImpl $CipherText $EncryptionKey 
+```
+#### Output 
+The ouput would be in the following format. The decrypted plain text would be displayed under "*** Plain Text ***"
+```
+Cipher transformation for decryption : AES/GCM/NoPadding
+*** Plain Text ***
+97b86a2a6a
+******************
+```
+
+
